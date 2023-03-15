@@ -15,16 +15,9 @@ import { IEvent } from './shared';
 })
 export class EventListComponent implements OnInit {
   events!: IEvent[];
-  constructor(
-    private eventService: EventService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // this.eventService.getEvents().subscribe((events) => {
-    //   this.events = events;
-    // });
-
     this.events = this.route.snapshot.data['events'];
   }
 }

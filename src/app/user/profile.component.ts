@@ -51,6 +51,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.route.navigate(['user/login']);
+    });
+  }
+
   validateLastName() {
     return this.lastName.valid || this.lastName.untouched;
   }
@@ -63,9 +69,11 @@ export class ProfileComponent implements OnInit {
   }
   saveProfile(value: { firstName: string; lastName: string }) {
     if (this.profileForm.valid) {
-      this.authService.updateCurrentUser(value.firstName, value.lastName);
-      // this.route.navigate(['events']);
-      this.toastr.success('Profile updated');
+      this.authService
+        .updateCurrentUser(value.firstName, value.lastName)
+        .subscribe(() => {
+          this.toastr.success('Profile updated');
+        });
     }
   }
 }

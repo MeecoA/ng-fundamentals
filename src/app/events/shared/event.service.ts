@@ -14,22 +14,12 @@ export class EventService {
     return this.http
       .get<IEvent[]>('/api/events')
       .pipe(catchError(this.handleError<IEvent[]>('getEvents', [])));
-
-    // let subject = new Subject<IEvent[]>();
-
-    // setTimeout(() => {
-    //   subject.next(events);
-    //   subject.complete();
-    // }, 100);
-    // return subject;
   }
 
   getEvent(id: number): Observable<IEvent> {
     return this.http
       .get<IEvent>('/api/events/' + id)
       .pipe(catchError(this.handleError<IEvent>('getEvent')));
-
-    // return events.find((event) => event.id === id);
   }
 
   saveEvent(event: any) {
@@ -39,14 +29,7 @@ export class EventService {
     return this.http
       .post<IEvent>('/api/events', event, options)
       .pipe(catchError(this.handleError<IEvent>('getEvent')));
-    // event.id = 999;
-    // event.session = [];
-    // events.push(event);
   }
-  // updateEvent(event: any) {
-  //   let index = events.findIndex((x) => (x.id = event.id));
-  //   events[index] = event;
-  // }
 
   searchSessions(searchTerm: string): Observable<ISession> | any {
     return this.http
