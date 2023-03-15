@@ -15,6 +15,12 @@ import { IEvent } from './shared';
       .bold {
         font-weight: bold;
       }
+      .pad-left {
+        margin-left: 10px;
+      }
+      .well div {
+        color: #bbb;
+      }
     `,
   ],
 })

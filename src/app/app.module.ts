@@ -2,7 +2,16 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/navbar.component';
-import { ToastrService } from './common/toastr.service';
+import { HttpClientModule } from '@angular/common/http';
+
+import {
+  JQ_TOKEN,
+  TOASTER_TOKEN,
+  Toaster,
+  CollapsibleWellComponent,
+  ModalComponent,
+  ModalTrigerDirective,
+} from './common/index';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { ErrorComponent } from './error/error.component';
@@ -15,11 +24,18 @@ import {
   EventService,
   EventDetailsComponent,
   CreateEventComponent,
-  EventRouteActivatorService,
   CreateSessionComponent,
   SessionDetailsComponent,
+  DurationPipe,
+  VoterService,
+  UpVoteComponent,
+  EventResolverService,
 } from './events/index';
 import { AuthService } from './user/auth.service';
+import { LocationValidator } from './location-validator.directive';
+
+declare let toastr: Toaster;
+declare let jQuery: any;
 
 @NgModule({
   declarations: [
@@ -32,20 +48,29 @@ import { AuthService } from './user/auth.service';
     ErrorComponent,
     CreateSessionComponent,
     SessionDetailsComponent,
+    CollapsibleWellComponent,
+    DurationPipe,
+    ModalComponent,
+    ModalTrigerDirective,
+    UpVoteComponent,
+    LocationValidator,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [
     EventService,
-    ToastrService,
-    EventRouteActivatorService,
+    { provide: TOASTER_TOKEN, useValue: toastr },
+    { provide: JQ_TOKEN, useValue: jQuery },
     { provide: 'canDeactivateCreateEvent', useValue: checkDirtyState },
     EventListResolverService,
     AuthService,
+    VoterService,
+    EventResolverService,
   ],
   bootstrap: [AppComponent],
 })

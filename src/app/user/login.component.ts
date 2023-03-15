@@ -20,10 +20,18 @@ export class LoginComponent {
   password: any;
   mouseOverLogin: boolean = false;
 
-  login(values: any) {
-    this.authService.loginUser(values.userName, values.password);
+  loginInvalid = false;
 
-    this.route.navigate(['events']);
+  login(values: any) {
+    this.authService
+      .loginUser(values.userName, values.password)
+      .subscribe((response) => {
+        if (!response) {
+          this.loginInvalid = true;
+        } else {
+          this.route.navigate(['events']);
+        }
+      });
   }
   cance() {
     this.route.navigate(['events']);
